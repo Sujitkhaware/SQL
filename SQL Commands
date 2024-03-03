@@ -1,0 +1,110 @@
+1) DQM commands :
+
+select * from TBL_EMPLOYEE where EM_ID = 01
+
+select * from TBL_EMPLOYEE where EM_NAME = 'Sujit'
+
+select * from TBL_EMPLOYEE where EM_ID in (01, 02)
+
+select * from TBL_EMPLOYEE where EM_JOIN_DT > '01-Apr-2023'
+
+select * from TBL_EMPLOYEE where EM_JOIN_DT < '01-Apr-2023'
+
+select * from TBL_EMPLOYEE where EM_JOIN_DT between  '01-Apr-2023' and '30-Apr-2023'
+
+select * from TBL_EMPLOYEE where EM_DEPT_ID = (select DM_ID from TBL_DEPT_MAS where DM_NAME = 'Accounts')
+
+select * from TBL_EMPLOYEE where EM_DEPT_ID in (select DM_ID from TBL_DEPT_MAS where DM_NAME in ('Accounts', 'Finance')
+
+2) DDL Commands
+
+* Create Command:
+
+Create table EMPLOYEE_MAS
+( [EMP_ID] int,
+  [EMP_NAME] varchar(100),
+  [EMP_DEPT_ID] int,
+  [EMP_STATUS] varchar(1)
+)
+
+* Drop Commands:
+
+drop table TBL_EMPLOYEE
+
+* Alter Command:
+
+- Add column in existing table
+
+Alter table TBL_EMPLOYEE
+add EM_STATUS varchar(1)
+
+- Alter column data type in existing table
+
+Alter table TBL_EMPLOYEE
+Alter EM_STATUS int
+
+* Truncate Command
+
+Truncate table TBL_EMPLOYEE
+
+3) DML Commands
+
+* Simple Insert
+
+INSERT INTO TABLE [TBL_EMPLOYEE]([EM_ID], [EM_NAME], [EM_STATUS])
+VALUES (01, 'Sujit', 'A')
+
+* Insert from another table
+
+SET IDENTIFIER INSERTS TBL_EMPLOYEE ON
+
+INSERT INTO TABLE [TBL_EMPLOYEE]([EM_ID], [EM_NAME], [EM_STATUS])
+select [EMP_ID], [EMP_NAME] from TBL_EMPLOYEE_OLD where EM_ID in (01, 02)
+
+SET IDENTIFIER INSERTS TBL_EMPLOYEE OFF
+
+* Simple Delete statement
+
+delete from TBL_EMPLOYEE where EM_ID = 1
+
+delete from TBL_EMPLOYEE where EM_ID in (1, 2)
+
+
+* Delete from another table
+
+delete from TBL_EMPLOYEE where EM_DEPT_ID = (select DM_ID where TBL_DEPT_MAS where DM_NAME = 'Marketing')
+
+delete from TBL_EMPLOYEE where EM_DEPT_ID in (select DM_ID where TBL_DEPT_MAS where DM_NAME in ('Marketing', Accounts))
+
+* Simple update statement
+
+update TBL_EMPLOYEE
+set EM_NAME = 'Sujit', EM_STATUS = 'A'
+where EM_ID = 1
+
+* Update from another table statement
+
+update TBL_EMPLOYEE
+set EM_NAME = EMO_NAME
+from TBL_EMPLOYEE_OLD
+where EM_ID = EMO_ID
+
+4) SQL joints
+
+Inner Joint
+
+select * from TBL_EMPLOYEE a
+inner join TBL_EMPLOYEE_OLD b
+on a.EM_ID = b.EMO_ID
+
+Left Join
+
+select * from TBL_EMPLOYEE a
+left join TBL_EMP_SALARY b
+on a.EM_SAL = b.ES_SAL
+
+Right Join
+
+select * from TBL_EMPLOYEE a
+Right join TBL_EMP_SALARY b
+on a.EM_SAL = b.ES_SAL
