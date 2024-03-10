@@ -16,6 +16,10 @@ select * from TBL_EMPLOYEE where EM_DEPT_ID = (select DM_ID from TBL_DEPT_MAS wh
 
 select * from TBL_EMPLOYEE where EM_DEPT_ID in (select DM_ID from TBL_DEPT_MAS where DM_NAME in ('Accounts', 'Finance')
 
+select EM_DEPT, * from TBL_EMPLOYEE group by EM_DEPT
+
+select * from TBL_EMPLOYEE order by EM_SAL desc
+
 2) DDL Commands
 
 * Create Command:
@@ -41,7 +45,7 @@ add EM_STATUS varchar(1)
 - Alter column data type in existing table
 
 Alter table TBL_EMPLOYEE
-Alter EM_STATUS int
+Alter column EM_STATUS int
 
 * Truncate Command
 
@@ -56,19 +60,14 @@ VALUES (01, 'Sujit', 'A')
 
 * Insert from another table
 
-SET IDENTIFIER INSERTS TBL_EMPLOYEE ON
-
 INSERT INTO TABLE [TBL_EMPLOYEE]([EM_ID], [EM_NAME], [EM_STATUS])
 select [EMP_ID], [EMP_NAME] from TBL_EMPLOYEE_OLD where EM_ID in (01, 02)
-
-SET IDENTIFIER INSERTS TBL_EMPLOYEE OFF
 
 * Simple Delete statement
 
 delete from TBL_EMPLOYEE where EM_ID = 1
 
 delete from TBL_EMPLOYEE where EM_ID in (1, 2)
-
 
 * Delete from another table
 
